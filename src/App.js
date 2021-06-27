@@ -1,8 +1,15 @@
+import './styles/globals.scss';
+import { Header } from "./components/Header";
+import { Main } from "./components/Main";
+import { Footer } from './components/Footer';
+
 
 function App() {
   return (
     <div className="App">
-      test
+      <Header />
+      <Main />
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,6 @@
-export async function getData(url) {
+export async function getData(path) {
   try {
-    const response = await fetch(url);
+    const response = await fetch(`/data/${path}`);
 
     if (!response.ok) throw new Error(response.statusText);
 

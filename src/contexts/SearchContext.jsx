@@ -1,9 +1,9 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const SearchContext = createContext();
 
 export function SearchProvider({ children }) {
-  const [searchText, setSearchText] = useState();
+  const [searchText, setSearchText] = useState('');
 
   return (
     <SearchContext.Provider value={{ searchText, setSearchText }}>
@@ -11,3 +11,5 @@ export function SearchProvider({ children }) {
     </SearchContext.Provider>
   );
 }
+
+export const useSearch = () => useContext(SearchContext);

@@ -2,7 +2,8 @@ import menuImg from "../../../assets/menu.svg";
 import closeImg from "../../../assets/close.svg";
 import rchloImg from "../../../assets/rchlo.svg";
 import riachueloImg from "../../../assets/riachuelo.svg";
-import searchImg from "../../../assets/search.svg";
+
+import { SearchBar } from "./SearchBar";
 
 export function Head() {
   return (
@@ -25,14 +26,7 @@ export function Head() {
           <img className="header__img" src={riachueloImg} alt="Logo" />
         </h1>
       </div>
-      <div className="header__search">
-        <img className="header__icon" src={searchImg} />
-        <input
-          className="header__input"
-          type="search"
-          placeholder="O que você está procurando?"
-        />
-      </div>
+      <SearchBar />
     </>
   );
 }

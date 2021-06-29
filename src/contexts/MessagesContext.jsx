@@ -9,7 +9,7 @@ export function MessagesProvider({ children }) {
     setMessages((messages) => [...messages, message]);
     setTimeout(() => {
       removeMessage(message);
-    }, 8000);
+    }, 6000);
   }
 
   function removeMessage(message) {
@@ -23,11 +23,4 @@ export function MessagesProvider({ children }) {
   );
 }
 
-export function useMessages() {
-  const messagesContext = useContext(MessagesContext);
-
-  if (!messagesContext)
-    throw new Error("useMessages was requested outside MessagesProvider");
-
-  return messagesContext;
-}
+export const useMessages = () => useContext(MessagesContext);

@@ -4,17 +4,20 @@ import { Main } from "./components/Main";
 import { Footer } from "./components/Footer";
 import { Messages } from "./components/Messages";
 import { MessagesProvider } from "./contexts/MessagesContext";
+import { SearchProvider } from "./contexts/SearchContext";
 
 function App() {
   return (
-    <div>
+    <>
       <MessagesProvider>
         <Messages />
-        <Header />
-        <Main />
+        <SearchProvider>
+          <Header />
+          <Main />
+        </SearchProvider>
       </MessagesProvider>
       <Footer />
-    </div>
+    </>
   );
 }
 

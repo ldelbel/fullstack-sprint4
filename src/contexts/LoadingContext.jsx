@@ -3,18 +3,37 @@ import { createContext, useContext, useState } from "react";
 const LoadingContext = createContext();
 
 export function LoadingProvider({ children }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingSearch, setIsLoadingSearch] = useState(false);
+  const [isLoadingFetch, setIsLoadingFetch] = useState(true);
+  const [fetchRequests, setFetchRequests] = useState([]);
 
-  function addRequest() {
-    setIsLoading(true);
+  function addRequestSearch() {
+    setIsLoadingSearch(true);
   }
 
-  function removeRequest() {
-    setIsLoading(false);
+  function removeRequestSearch() {
+    setIsLoadingSearch(false);
+  }
+
+  function addRequestFetch() {
+    setIsLoadingFetch(true);
+  }
+
+  function removeRequestFetch() {
+    setIsLoadingFetch(false);
   }
 
   return (
-    <LoadingContext.Provider value={{ isLoading, addRequest, removeRequest }}>
+    <LoadingContext.Provider
+      value={{
+        isLoadingSearch,
+        addRequestSearch,
+        removeRequestSearch,
+        isLoadingFetch,
+        addRequestFetch,
+        removeRequestFetch,
+      }}
+    >
       {children}
     </LoadingContext.Provider>
   );

@@ -1,4 +1,6 @@
+import { Skeleton } from "antd";
 import { useEffect, useState } from "react";
+import { useLoading } from "../../../contexts/LoadingContext";
 import { useMessages } from "../../../contexts/MessagesContext";
 import { getFilters } from "../../../services/filtersService";
 import { Filter } from "./Filter";
@@ -6,6 +8,7 @@ import { Filter } from "./Filter";
 export function Filters() {
   const [data, setData] = useState();
   const { addMessage } = useMessages();
+  const { isLoadingFetch } = useLoading();
 
   async function fetchData() {
     const req = await getFilters();
@@ -19,6 +22,10 @@ export function Filters() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  if(isLoadingFetch) {
+    return <Skeleton  title={false} paragraph={{ rows: 1, width: '100%'}}active />
+  }
 
   return (
     <section className="main__filters filters">

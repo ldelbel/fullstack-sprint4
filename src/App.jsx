@@ -11,11 +11,13 @@ function App() {
     <>
       <MessagesProvider>
         <Messages />
+
         <ContentProvider>
           <Header />
           <Main />
         </ContentProvider>
       </MessagesProvider>
+
       <Footer />
     </>
   );

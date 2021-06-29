@@ -4,6 +4,7 @@ import { Breadcrumbs } from "./Breadcrumbs";
 import { Filters } from "./Filters";
 
 export function Main() {
+  
   return (
     <main className="main">
       <Breadcrumbs />

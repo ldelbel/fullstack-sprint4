@@ -1,7 +1,7 @@
 import { useMessages } from "../../contexts/MessagesContext";
 import { Message } from "./Message";
-import "./styles.scss";
 
+import "./styles.scss";
 
 export function Messages() {
   const { messages } = useMessages();

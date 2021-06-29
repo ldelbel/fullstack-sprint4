@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
+import "antd/es/spin/style/css";
+import Spin from "antd/es/spin";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Product } from "./Product";
 import { useLoading } from "../../../contexts/LoadingContext";
 import { useMessages } from "../../../contexts/MessagesContext";
 import { useSearch } from "../../../contexts/SearchContext";
 import { getProducts } from "../../../services/productsService";
-import { Product } from "./Product";
-import ClipLoader from "react-spinners/ClipLoader";
+
+const antIcon = (
+  <LoadingOutlined style={{ fontSize: 70, color: "#9e9e9e" }} spin />
+);
 
 export function Products() {
   const [data, setData] = useState();
   const [display, setDisplay] = useState();
   const { addMessage } = useMessages();
   const { searchText } = useSearch();
-  const { isLoading } = useLoading();
+  const { isLoadingSearch } = useLoading();
 
   async function fetchData() {
     const req = await getProducts();
@@ -39,21 +45,27 @@ export function Products() {
     setDisplay(filtered);
   }
 
-  if (isLoading)
-    return (
-      <div className="loading">
-        <ClipLoader color={"#9e9e9e"} loading={isLoading} size={70} />
-      </div>
-    );
+  // if (isLoadingSearch)
+  //   return (
+  //     <div className="loading">
+  //       <Spin spinning={ true } />
+  //     </div>
+  //   );
 
   return (
-    <section>
-      <ul className="main__products">
-        {display &&
-          display.map((product) => (
-            <Product key={product.sku} product={product} />
-          ))}
-      </ul>
-    </section>
+    <Spin
+      spinning={isLoadingSearch}
+      indicator={antIcon}
+      size="large"
+    >
+      <section>
+        <ul className="main__products">
+          {display &&
+            display.map((product) => (
+              <Product key={product.sku} product={product} />
+            ))}
+        </ul>
+      </section>
+    </Spin>
   );
 }

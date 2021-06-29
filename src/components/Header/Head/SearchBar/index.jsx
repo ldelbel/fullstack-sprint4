@@ -6,15 +6,15 @@ import { useSearch } from "../../../../contexts/SearchContext";
 export function SearchBar() {
   const { setSearchText } = useSearch();
   const countRef = useRef();
-  const { isLoading, addRequest, removeRequest } = useLoading();
+  const { addRequestSearch, removeRequestSearch } = useLoading();
 
   function searchProducts(event) {
     clearTimeout(countRef.current);
-    addRequest();
+    addRequestSearch();
     countRef.current = setTimeout(() => {
       setSearchText(event.target.value);
-      removeRequest();
-    }, 2500);
+      removeRequestSearch();
+    }, 2000);
   }
 
   return (

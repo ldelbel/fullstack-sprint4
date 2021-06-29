@@ -4,17 +4,17 @@ import { Main } from "./components/Main";
 import { Footer } from "./components/Footer";
 import { Messages } from "./components/Messages";
 import { MessagesProvider } from "./contexts/MessagesContext";
-import { SearchProvider } from "./contexts/SearchContext";
+import { ContentProvider } from "./contexts/ContentProvider";
 
 function App() {
   return (
     <>
       <MessagesProvider>
         <Messages />
-        <SearchProvider>
+        <ContentProvider>
           <Header />
           <Main />
-        </SearchProvider>
+        </ContentProvider>
       </MessagesProvider>
       <Footer />
     </>

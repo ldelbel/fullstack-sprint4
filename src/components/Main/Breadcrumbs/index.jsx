@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
+import { useMessages } from "../../../contexts/MessagesContext";
 import { getBreadcrumbs } from "../../../services/breadcrumbsService";
 import { Breadcrumb } from "./Breadcrumb";
 
 export function Breadcrumbs() {
   const [data, setData] = useState();
+  const { addMessage } = useMessages();
 
   async function fetchData() {
     const req = await getBreadcrumbs();
+    if (req.error) {
+      addMessage(req.error);
+      return;
+    }
     setData(req);
   }
 

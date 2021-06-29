@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
+import { useMessages } from "../../../contexts/MessagesContext";
 import { getCategories } from "../../../services/categoriesService";
 import { MenuItem } from "./MenuItem";
 
 export function Menu() {
   const [data, setData] = useState();
+  const { addMessage } = useMessages();
 
   async function fetchData() {
     const req = await getCategories();
+    if(req.error) {
+      addMessage(req.error);
+      return;
+    }
     setData(req);
   }
 

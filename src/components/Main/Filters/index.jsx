@@ -8,15 +8,17 @@ import { Filter } from "./Filter";
 export function Filters() {
   const [data, setData] = useState();
   const { addMessage } = useMessages();
-  const { isLoadingFetch } = useLoading();
+  const { isLoadingFetch, addRequestFetch, removeRequestFetch } = useLoading();
 
   async function fetchData() {
+    addRequestFetch('filters');
     const req = await getFilters();
     if (req.error) {
       addMessage(req.error);
       return;
     }
     setData(req);
+    removeRequestFetch('filters');
   }
 
   useEffect(() => {

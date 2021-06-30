@@ -1,34 +1,42 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const LoadingContext = createContext();
 
 export function LoadingProvider({ children }) {
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
-  const [isLoadingFetch, setIsLoadingFetch] = useState(true);
+  const [isLoadingFetch, setIsLoadingFetch] = useState(false);
   const [fetchRequests, setFetchRequests] = useState([]);
 
-  function addRequestSearch() {
+  useEffect(() => {
+    if (fetchRequests.length !== 0) {
+      setIsLoadingFetch(true);
+    } else {
+      setIsLoadingFetch(false);
+    }
+  }, [fetchRequests]);
+
+  function startSearching() {
     setIsLoadingSearch(true);
   }
 
-  function removeRequestSearch() {
+  function finishSearching() {
     setIsLoadingSearch(false);
   }
 
-  function addRequestFetch() {
-    setIsLoadingFetch(true);
+  function addRequestFetch(name) {
+    setFetchRequests((requests) => [...requests, name]);
   }
 
-  function removeRequestFetch() {
-    setIsLoadingFetch(false);
+  function removeRequestFetch(name) {
+    setFetchRequests((requests) => requests.filter((str) => str !== name));
   }
 
   return (
     <LoadingContext.Provider
       value={{
         isLoadingSearch,
-        addRequestSearch,
-        removeRequestSearch,
+        startSearching,
+        finishSearching,
         isLoadingFetch,
         addRequestFetch,
         removeRequestFetch,

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Skeleton, Space } from "antd";
 import "antd/es/spin/style/css";
 import Spin from "antd/es/spin";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -17,15 +18,24 @@ export function Products() {
   const [display, setDisplay] = useState();
   const { addMessage } = useMessages();
   const { searchText } = useSearch();
-  const { isLoadingSearch } = useLoading();
+  const {
+    isLoadingSearch,
+    isLoadingFetch,
+    addRequestFetch,
+    removeRequestFetch,
+  } = useLoading();
 
   async function fetchData() {
+    addRequestFetch('products');
     const req = await getProducts();
     if (req.error) {
       addMessage(req.error);
       return;
     }
     setData(req);
+    setTimeout(() => {
+      removeRequestFetch('products');
+    }, 2500)
   }
 
   useEffect(() => {
@@ -45,19 +55,29 @@ export function Products() {
     setDisplay(filtered);
   }
 
-  // if (isLoadingSearch)
-  //   return (
-  //     <div className="loading">
-  //       <Spin spinning={ true } />
-  //     </div>
-  //   );
+  const arr = new Array(8).fill("");
+
+  if (isLoadingFetch) {
+    return (
+      <Space className="products-loading">
+        {arr.map(() => (
+          <div>
+            <Skeleton.Avatar size={250} shape="square" />
+            <div style={{ marginTop: 20 }}>
+              <Skeleton
+                title={false}
+                paragraph={{ rows: 2, width: "100%" }}
+                active
+              />
+            </div>
+          </div>
+        ))}
+      </Space>
+    );
+  }
 
   return (
-    <Spin
-      spinning={isLoadingSearch}
-      indicator={antIcon}
-      size="large"
-    >
+    <Spin spinning={isLoadingSearch} indicator={antIcon} size="large">
       <section>
         <ul className="main__products">
           {display &&

@@ -1,0 +1,25 @@
+.alerts {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  z-index: 9999;
+}
+
+.alert {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  color: #721c24;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  padding: 7px;
+  margin-top: 5px;
+
+  &__errorType {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: rgb(148, 148, 148);
+    text-align: end;
+    margin-top: 5px;
+  }
+}

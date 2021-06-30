@@ -47,11 +47,24 @@ export function Products() {
   }, [data, searchText]);
 
   function filterBySearch(text) {
-    if (!text) setDisplay(data);
+    if (!text) {
+      setDisplay(data);
+      return;
+    }
 
-    const filtered = data.filter((product) =>
-      product.name.toLowerCase().includes(text.toLowerCase())
-    );
+    const textArray = text.toLowerCase().split(" ");
+
+    const filtered = data.filter((product) => {
+      const productNameToArray = product.name.toLowerCase().split(" ");
+      let termTestPositives = 0;
+      productNameToArray.forEach((term) => {
+        textArray.forEach((text) => {
+          if (term.includes(text)) termTestPositives++;
+        });
+      });
+      let test = textArray.length === termTestPositives;
+      return test;
+    });
     setDisplay(filtered);
   }
 
